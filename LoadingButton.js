@@ -13,9 +13,14 @@ var LoadingButton = function() {
 	var elementText = {};
 
 	/**
+	 * Speichert das DOM Button originale Text Element.
+	 */
+	var elementOriginalText = {};
+
+	/**
 	 * Speichert der Button Text.
 	 */
-	var elementInnerText = '';
+	var elementOriginalInnerText = '';
 
 	/**
 	 * Speichert das DOM Button Id.
@@ -39,6 +44,7 @@ var LoadingButton = function() {
 		checkMarkColor: '#0DFF84',
 		fontSize: '56px',
 		fontColor: '#ffffff',
+		backToOriginalState: true,
 	}
 
 	/**
@@ -51,10 +57,10 @@ var LoadingButton = function() {
 
 		if(document.getElementById(settings.bindToElementById)) {
 			element = document.getElementById(settings.bindToElementById);
-			elementInnerText = element.innerHTML;
+			elementOriginalInnerText = element.innerHTML;
 			elementId = settings.bindToElementById;
 		} else {
-			throw new Error('Selector does not exist in the DOM '+settings.bindToElementById);
+			throw new Error('Selector does not exist in the DOM '+ settings.bindToElementById);
 		}
 
 		addStyleTags();
@@ -66,7 +72,7 @@ var LoadingButton = function() {
 	 * Start das loader overlay.
 	 */
 	function start() {
-		var regExp = new RegExp('(?:^|\s)loading(?!\S)');
+		var regExp = new RegExp('(?:^|\s)(animated|loading)(?!\S)');
 
 		if(regExp.test(element.className)) {
 			return;
@@ -85,10 +91,13 @@ var LoadingButton = function() {
 		element.appendChild(loader);
 	}
 
+	/**
+	 * 
+	 */
 	function wrapInnerHTML() {
 		elementText = document.createElement('div');
 		elementText.className = 'text';
-		elementText.innerHTML = elementInnerText;
+		elementText.innerHTML = elementOriginalInnerText;
 		element.innerHTML = '';
 		element.appendChild(elementText);
 	}
@@ -98,15 +107,19 @@ var LoadingButton = function() {
 	 */
 	function stop() {
 		element.className = element.className.replace('loading', '');
-		element.style.width = element.offsetWidth+'px';
-		element.style.height = element.offsetHeight+'px';
 		element.innerHTML = '';
 		element.className = 'animated';
 
 		var checkMark = document.createElement('div');
 		checkMark.className = 'check-mark';
-
 		element.appendChild(checkMark);
+
+		if(settings.backToOriginalState) setTimeout(reset, 2000);
+	}
+
+	function reset() {
+		element.className = '';
+		wrapInnerHTML();
 	}
 
 	/**
