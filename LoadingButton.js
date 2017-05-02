@@ -3,37 +3,37 @@ var LoadingButton = function() {
 	'use strict';
 
 	/**
-	 * Speichert das DOM Button Element.
+	 * stores the button element.
 	 */
 	var element = {};
 
 	/**
-	 * Speichert das DOM Button Text Element.
+	 * stores the text element.
 	 */
 	var elementText = {};
 
 	/**
-	 * Speichert das DOM Button originale Text Element.
+	 * stores the Button original text.
 	 */
 	var elementOriginalText = {};
 
 	/**
-	 * Speichert der Button Text.
+	 * stores the Button Text.
 	 */
 	var elementOriginalInnerText = '';
 
 	/**
-	 * Speichert das DOM Button Id.
+	 * stores the Button Id.
 	 */
 	var elementId = '';
 
 	/**
-	 * Speichert das DOM loader overlay.
+	 * stores the loader overlay.
 	 */
 	var loader = {};
 
 	/**
-	 * Speichert die Default Settings.
+	 * stores the Default Settings.
 	 */
 	var settings = {
 		progressColor: 'green',
@@ -48,9 +48,9 @@ var LoadingButton = function() {
 	}
 
 	/**
-	 * - Prüft ob die developer eigene Setting übergeben hat.
-	 * - Prüft ob das Selector im DOM existiert.
-	 * - Fügt einen Style-Tag in das Head-Tag zu.
+	 * - checks if the developer passed own settings.
+	 * - check if the element exist in the DOM.
+	 * - add a style tag to the head.
 	 */
 	function init(options) {
 		settings = options || settings;
@@ -69,7 +69,7 @@ var LoadingButton = function() {
 	}
 
 	/**
-	 * Start das loader overlay.
+	 * start the loader overlay.
 	 */
 	function start() {
 		var regExp = new RegExp('(?:^|\s)(animated|loading)(?!\S)');
@@ -92,7 +92,7 @@ var LoadingButton = function() {
 	}
 
 	/**
-	 * 
+	 * wrap the text that exist inside the button in a div with class text.
 	 */
 	function wrapInnerHTML() {
 		elementText = document.createElement('div');
@@ -103,7 +103,7 @@ var LoadingButton = function() {
 	}
 
 	/**
-	 * Stop das loader overlay tut einen häkchen rein.
+	 * Stop the loader and add a checkmark in the button.
 	 */
 	function stop() {
 		element.className = element.className.replace('loading', '');
@@ -123,7 +123,7 @@ var LoadingButton = function() {
 	}
 
 	/**
-	 * Fügt das Style-Tag für das DOM Button Element in das Head-Tag zu.
+	 * add style tag to the head tag.
 	 */
 	function addStyleTags() {
 		var head = document.head || document.getElementsByTagName('head')[0];
@@ -218,7 +218,7 @@ var LoadingButton = function() {
 	}
 
 	/**
-	 * Warten auf click event.
+	 * wait for the click event.
 	 */
 	function onclick(callback) {
 		element.onclick = function() { 
@@ -226,7 +226,10 @@ var LoadingButton = function() {
 			callback();
 		}
 	}
-
+	
+	/**
+	 * wait for the hover event.
+	 */
 	function addHoverEvents() {
 		element.onmouseover = function() {
 			if(element.className == 'loading') return;
