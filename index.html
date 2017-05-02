@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Button Module</title>
+	<script type="text/javascript" src="button.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Rubik+One|Kalam' rel='stylesheet' type='text/css'>
+	<style type="text/css">
+		* {
+			font-family: 'Rubik One', sans-serif;
+		}
+	</style>
+</head>
+<body>
+<button id="button">say hello</button>
+
+
+<script type="text/javascript">
+	(function() {
+		var button = new LoadingButton;
+
+		button.settings({
+			progressColor: '#0CA4E8',
+			bindToElementById: 'button',
+			buttonColor: '#0D76FF',
+			buttonWidth: '300px',
+			buttonHeight: '100px',
+			checkMarkColor: '#0DFF84',
+			fontSize: '36px',
+			fontColor: '#ffffff'
+		});
+
+		button.onclick(function() {
+			setTimeout(button.stop, 4000);
+		});
+	})();
+</script>
+</body>
+</html>
