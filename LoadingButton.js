@@ -129,89 +129,89 @@ var LoadingButton = function() {
 		var head = document.head || document.getElementsByTagName('head')[0];
 		var styleTag = document.createElement('style');
 		styleTag.innerHTML = `#`+elementId+` {
-								z-index: 1;
-								width: `+settings.buttonWidth+`;
-								height: `+settings.buttonHeight+`;
-								background: `+settings.buttonColor+`;
-								color: `+settings.fontColor+`;
-								font-size: `+settings.fontSize+`;
-								border: 0;
-								position: relative;
-								overflow: hidden;
-							 }
+					z-index: 1;
+					width: `+settings.buttonWidth+`;
+					height: `+settings.buttonHeight+`;
+					background: `+settings.buttonColor+`;
+					color: `+settings.fontColor+`;
+					font-size: `+settings.fontSize+`;
+					border: 0;
+					position: relative;
+					overflow: hidden;
+				      }
 
-							 #`+elementId+`:hover {
-							 	cursor: pointer;
-							 }
+				      #`+elementId+`:hover {
+					cursor: pointer;
+				      }
 
-							 .text {
-							 	z-index: 4;
-							 	text-align: center;
-							 }
+				      .text {
+					z-index: 4;
+					text-align: center;
+				      }
 
-							 .loader {
-							 	opacity: 0.8;
-							 	z-index: 0;
-							 	position: absolute;
-							 	top:0;
-							 	left:0;
-							 	background-color: `+settings.progressColor+`;
-							 	height: 100%;
-							 	animation-name: load;
-    							animation-duration: 4s;
-    							animation-fill-mode: forwards;
-							 }
+				      .loader {
+					opacity: 0.8;
+					z-index: 0;
+				 	position: absolute;
+					top:0;
+					left:0;
+					background-color: `+settings.progressColor+`;
+					height: 100%;
+					animation-name: load;
+    					animation-duration: 4s;
+    					animation-fill-mode: forwards;
+				      }
 
-							 .check-mark {
-							 	z-index: 3;
-							 	display: inline-block;
-							 	margin: 0 auto;
-							 	width: 10px;
-							 	height: 30px;
-							 	border: 10px solid `+settings.checkMarkColor+`;
-							 	border-top: none;
-							 	border-left: none;
-							 	transform: rotate(35deg);
-							 	vertical-align: middle;
-							 }
+				      .check-mark {
+					z-index: 3;
+					display: inline-block;
+					margin: 0 auto;
+					width: 10px;
+					height: 30px;
+					border: 10px solid `+settings.checkMarkColor+`;
+					border-top: none;
+					border-left: none;
+					transform: rotate(35deg);
+					vertical-align: middle;
+				      }
 
-							 .fade-out {
-							 	opacity: 1;
-							 	animation-name: fade-out;
-    							animation-duration: 3s;
-    							animation-fill-mode: forwards;
-							 }
+				      .fade-out {
+				  	opacity: 1;
+					animation-name: fade-out;
+    					animation-duration: 3s;
+    					animation-fill-mode: forwards;
+				      }
 
-							 @keyframes load {
-							 	from {
-							 		width: 0;
-							 	} to {
-							 		width: 100%;
-							 	}
-							 }
+				      @keyframes load {
+					from {
+					  width: 0;
+					} to {
+					  width: 100%;
+					}
+				      }
 
-							 @-webkit-keyframes load {
-							 	from {
-							 		width: 0;
-							 	} to {
-							 		width: 100%;
-							 	}
+				      @-webkit-keyframes load {
+					from {
+					  width: 0;
+					} to {
+					  width: 100%;
+					}
 
-							 @keyframes fade-out {
-							 	from {
-							 		opacity: 1;
-							 	} to {
-							 		opacity: 0;
-							 	}
-							 }
+				      @keyframes fade-out {
+					from {
+					  opacity: 1;
+					} to {
+					  opacity: 0;
+					}
+				      }
 
-							 @-webkit-keyframes fade-out {
-							 	from {
-							 		opacity: 1;
-							 	} to {
-							 		opacity: 0;
-							 	}
-							 }`;
+				      @-webkit-keyframes fade-out {
+					from {
+					  opacity: 1;
+					} to {
+					  opacity: 0;
+					}
+				      }`;
 
 		styleTag.setAttribute('id', settings.bindToElementById +'ButtonCSS');
 		head.appendChild(styleTag);
