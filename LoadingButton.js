@@ -116,7 +116,10 @@ var LoadingButton = function() {
 
 		if(settings.backToOriginalState) setTimeout(reset, 2000);
 	}
-
+	
+	/**
+	 * reset the button element to its original state.
+	 */
 	function reset() {
 		element.className = '';
 		wrapInnerHTML();
