@@ -218,7 +218,7 @@ var LoadingButton = function() {
 	}
 
 	/**
-	 * wait for the click event.
+	 * bind the click event.
 	 */
 	function onclick(callback) {
 		element.onclick = function() { 
@@ -228,7 +228,7 @@ var LoadingButton = function() {
 	}
 	
 	/**
-	 * wait for the hover event.
+	 * bind the hover event.
 	 */
 	function addHoverEvents() {
 		element.onmouseover = function() {
