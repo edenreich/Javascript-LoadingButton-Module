@@ -13,7 +13,6 @@
 <body>
 <button id="button">click Me</button>
 
-
 <script type="text/javascript">
 	(function() {
 		var button = new LoadingButton;
@@ -31,7 +30,9 @@
 		});
 
 		button.onclick(function() {
-			setTimeout(button.stop, 4000);
+			// setTimeout is just to simulate some ajax request perhaps when complete call button.stop 
+			setTimeout(button.stop.bind(this, 'success'), 4000);
+			// setTimeout(button.stop.bind(this, 'failed'), 4000);
 		});
 	})();
 </script>

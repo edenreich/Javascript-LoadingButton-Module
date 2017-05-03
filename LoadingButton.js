@@ -53,7 +53,7 @@ var LoadingButton = function() {
 	 * - add a style tag to the head.
 	 */
 	function init(options) {
-		settings = options || settings;
+		settings = extend(settings, options);
 
 		if(document.getElementById(settings.bindToElementById)) {
 			element = document.getElementById(settings.bindToElementById);
@@ -105,14 +105,22 @@ var LoadingButton = function() {
 	/**
 	 * Stop the loader and add a checkmark in the button.
 	 */
-	function stop() {
+	function stop(status) {
+		var icon = document.createElement('div');
 		element.className = element.className.replace('loading', '');
 		element.innerHTML = '';
 		element.className = 'animated';
 
-		var checkMark = document.createElement('div');
-		checkMark.className = 'check-mark';
-		element.appendChild(checkMark);
+		switch(status) {
+			case 'failed':
+				icon.className = 'x-mark';
+				break;
+			case 'success':
+				icon.className = 'check-mark';
+				break;
+		}
+
+		element.appendChild(icon);
 
 		if(settings.backToOriginalState) setTimeout(reset, 2000);
 	}
@@ -131,90 +139,102 @@ var LoadingButton = function() {
 	function addStyleTags() {
 		var head = document.head || document.getElementsByTagName('head')[0];
 		var styleTag = document.createElement('style');
-		styleTag.innerHTML = `#`+elementId+` {
-					z-index: 1;
-					width: `+settings.buttonWidth+`;
-					height: `+settings.buttonHeight+`;
-					background: `+settings.buttonColor+`;
-					color: `+settings.fontColor+`;
-					font-size: `+settings.fontSize+`;
-					border: 0;
-					position: relative;
-					overflow: hidden;
-				      }
+		styleTag.innerHTML = `
 
-				      #`+elementId+`:hover {
-					cursor: pointer;
-				      }
+		#`+elementId+` {
+			z-index: 1;
+			width: `+settings.buttonWidth+`;
+			height: `+settings.buttonHeight+`;
+			background: `+settings.buttonColor+`;
+			color: `+settings.fontColor+`;
+			font-size: `+settings.fontSize+`;
+			border: 0;
+			position: relative;
+			overflow: hidden;
+	    }
 
-				      .text {
-					z-index: 4;
-					text-align: center;
-				      }
+	    #`+elementId+`:hover {
+			cursor: pointer;
+		}
 
-				      .loader {
-					opacity: 0.8;
-					z-index: 0;
-				 	position: absolute;
-					top:0;
-					left:0;
-					background-color: `+settings.progressColor+`;
-					height: 100%;
-					animation-name: load;
-    					animation-duration: 4s;
-    					animation-fill-mode: forwards;
-				      }
+		.text {
+			z-index: 4;
+			text-align: center;
+		}
 
-				      .check-mark {
-					z-index: 3;
-					display: inline-block;
-					margin: 0 auto;
-					width: 10px;
-					height: 30px;
-					border: 10px solid `+settings.checkMarkColor+`;
-					border-top: none;
-					border-left: none;
-					transform: rotate(35deg);
-					vertical-align: middle;
-				      }
+	    .loader {
+			opacity: 0.8;
+			z-index: 0;
+		 	position: absolute;
+			top:0;
+			left:0;
+			background-color: `+settings.progressColor+`;
+			height: 100%;
+			animation-name: load;
+			animation-duration: 4s;
+			animation-fill-mode: forwards;
+	    }
 
-				      .fade-out {
-				  	opacity: 1;
-					animation-name: fade-out;
-    					animation-duration: 3s;
-    					animation-fill-mode: forwards;
-				      }
+	    .x-mark::before {
+	    	content: "X";
+	    	display: inlne-block;
+	    	font-size: 1.5em;
+	    	color: red;
+	    	vertical-align: middle;
+	    	margin: 0 auto;
+	    }
 
-				      @keyframes load {
-					from {
-					  width: 0;
-					} to {
-					  width: 100%;
-					}
-				      }
+	    .check-mark {
+			z-index: 3;
+			display: inline-block;
+			margin: 0 auto;
+			width: 10px;
+			height: 30px;
+			border: 10px solid `+settings.checkMarkColor+`;
+			border-top: none;
+			border-left: none;
+			transform: rotate(35deg);
+			vertical-align: middle;
+	    }
 
-				      @-webkit-keyframes load {
-					from {
-					  width: 0;
-					} to {
-					  width: 100%;
-					}
+	    .fade-out {
+	  		opacity: 1;
+			animation-name: fade-out;
+			animation-duration: 3s;
+			animation-fill-mode: forwards;
+	    }
 
-				      @keyframes fade-out {
-					from {
-					  opacity: 1;
-					} to {
-					  opacity: 0;
-					}
-				      }
+	    @keyframes load {
+			from {
+			  	width: 0;
+			} to {
+			  	width: 100%;
+			}
+	    }
 
-				      @-webkit-keyframes fade-out {
-					from {
-					  opacity: 1;
-					} to {
-					  opacity: 0;
-					}
-				      }`;
+	    @-webkit-keyframes load {
+			from {
+		  		width: 0;
+			} to {
+		  		width: 100%;
+			}
+		}
+
+	    @keyframes fade-out {
+			from {
+		  		opacity: 1;
+			} to {
+		  		opacity: 0;
+			}
+	    }
+
+	  	@-webkit-keyframes fade-out {
+			from {
+		  		opacity: 1;
+			} to {
+		  		opacity: 0;
+		}
+	    }`;
 
 		styleTag.setAttribute('id', settings.bindToElementById +'ButtonCSS');
 		head.appendChild(styleTag);
@@ -239,6 +259,29 @@ var LoadingButton = function() {
 			
 			elementText.innerHTML = 'send';
 		};
+	}
+
+	/**
+	 * Extend an object.
+	 */
+	function extend(currentObj, newObj ) {
+
+		var extended = {};
+	    var prop;
+
+	    for (prop in currentObj) {
+	        if (Object.prototype.hasOwnProperty.call(currentObj, prop)) {
+	            extended[prop] = currentObj[prop];
+	        }
+	    }
+
+	    for (prop in newObj) {
+	        if (Object.prototype.hasOwnProperty.call(newObj, prop)) {
+	            extended[prop] = newObj[prop];
+	        }
+	    }
+
+	    return extended;
 	}
 	
 	return {
