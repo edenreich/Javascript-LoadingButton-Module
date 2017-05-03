@@ -151,9 +151,9 @@ var LoadingButton = function() {
 			border: 0;
 			position: relative;
 			overflow: hidden;
-	    }
+	    	}
 
-	    #`+elementId+`:hover {
+	    	#`+elementId+`:hover {
 			cursor: pointer;
 		}
 
@@ -162,7 +162,7 @@ var LoadingButton = function() {
 			text-align: center;
 		}
 
-	    .loader {
+	    	.loader {
 			opacity: 0.8;
 			z-index: 0;
 		 	position: absolute;
@@ -173,18 +173,18 @@ var LoadingButton = function() {
 			animation-name: load;
 			animation-duration: 4s;
 			animation-fill-mode: forwards;
-	    }
+	    	}
 
-	    .x-mark::before {
-	    	content: "X";
-	    	display: inlne-block;
-	    	font-size: 1.5em;
-	    	color: red;
-	    	vertical-align: middle;
-	    	margin: 0 auto;
-	    }
+	    	.x-mark::before {
+	    		content: "X";
+	    		display: inlne-block;
+	    		font-size: 1.5em;
+	    		color: red;
+	    		vertical-align: middle;
+	    		margin: 0 auto;
+	    	}
 
-	    .check-mark {
+	    	.check-mark {
 			z-index: 3;
 			display: inline-block;
 			margin: 0 auto;
@@ -195,24 +195,24 @@ var LoadingButton = function() {
 			border-left: none;
 			transform: rotate(35deg);
 			vertical-align: middle;
-	    }
+	    	}
 
-	    .fade-out {
+	    	.fade-out {
 	  		opacity: 1;
 			animation-name: fade-out;
 			animation-duration: 3s;
 			animation-fill-mode: forwards;
-	    }
+	    	}
 
-	    @keyframes load {
+	    	@keyframes load {
 			from {
 			  	width: 0;
 			} to {
 			  	width: 100%;
 			}
-	    }
+	    	}
 
-	    @-webkit-keyframes load {
+	    	@-webkit-keyframes load {
 			from {
 		  		width: 0;
 			} to {
@@ -220,13 +220,13 @@ var LoadingButton = function() {
 			}
 		}
 
-	    @keyframes fade-out {
+	    	@keyframes fade-out {
 			from {
 		  		opacity: 1;
 			} to {
 		  		opacity: 0;
 			}
-	    }
+	    	}
 
 	  	@-webkit-keyframes fade-out {
 			from {
@@ -267,21 +267,21 @@ var LoadingButton = function() {
 	function extend(currentObj, newObj ) {
 
 		var extended = {};
-	    var prop;
+	    	var prop;
 
-	    for (prop in currentObj) {
-	        if (Object.prototype.hasOwnProperty.call(currentObj, prop)) {
-	            extended[prop] = currentObj[prop];
-	        }
-	    }
+	    	for (prop in currentObj) {
+	        	if (Object.prototype.hasOwnProperty.call(currentObj, prop)) {
+	            		extended[prop] = currentObj[prop];
+	        	}
+		}
 
-	    for (prop in newObj) {
-	        if (Object.prototype.hasOwnProperty.call(newObj, prop)) {
-	            extended[prop] = newObj[prop];
-	        }
-	    }
+	    	for (prop in newObj) {
+	        	if (Object.prototype.hasOwnProperty.call(newObj, prop)) {
+	            		extended[prop] = newObj[prop];
+	        	}
+		}
 
-	    return extended;
+	    	return extended;
 	}
 	
 	return {
