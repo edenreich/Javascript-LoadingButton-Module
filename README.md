@@ -34,7 +34,7 @@ please note that if you do not give an specific bindToElementById options the ob
 you can use onclick event like so:
 ```javascript
 button.onclick(function() {
-  // the button will start loading state automaticly so you will need to stop it based appond the tasks if fails or succeed.
+  // the button will start loading state automaticly so you will need to stop it based upon the tasks if fails or succeed.
 });
 ```
 you can stop the loading like so:
