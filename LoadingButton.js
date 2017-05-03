@@ -37,11 +37,12 @@ var LoadingButton = function() {
 	 */
 	var settings = {
 		progressColor: 'green',
-		bindToElementById: 'selector',
+		bindToElementById: 'button',
 		buttonColor: 'blue',
 		buttonWidth: '200px',
 		buttonHeight: '80px',
 		checkMarkColor: '#0DFF84',
+		xMarkColor: 'red',
 		fontSize: '56px',
 		fontColor: '#ffffff',
 		backToOriginalState: true,
@@ -139,21 +140,21 @@ var LoadingButton = function() {
 	function addStyleTags() {
 		var head = document.head || document.getElementsByTagName('head')[0];
 		var styleTag = document.createElement('style');
-		styleTag.innerHTML = `
+		var CSS = `
 
-		#`+elementId+` {
+		#${elementId} {
 			z-index: 1;
-			width: `+settings.buttonWidth+`;
-			height: `+settings.buttonHeight+`;
-			background: `+settings.buttonColor+`;
-			color: `+settings.fontColor+`;
-			font-size: `+settings.fontSize+`;
+			width: ${settings.buttonWidth};
+			height: ${settings.buttonHeight};
+			background: ${settings.buttonColor};
+			color: ${settings.fontColor};
+			font-size: ${settings.fontSize};
 			border: 0;
 			position: relative;
 			overflow: hidden;
 	    	}
 
-	    	#`+elementId+`:hover {
+	    	#${elementId}:hover {
 			cursor: pointer;
 		}
 
@@ -168,7 +169,7 @@ var LoadingButton = function() {
 		 	position: absolute;
 			top:0;
 			left:0;
-			background-color: `+settings.progressColor+`;
+			background-color: ${settings.progressColor};
 			height: 100%;
 			animation-name: load;
 			animation-duration: 4s;
@@ -179,7 +180,7 @@ var LoadingButton = function() {
 	    		content: "X";
 	    		display: inlne-block;
 	    		font-size: 1.5em;
-	    		color: red;
+	    		color: ${settings.xMarkColor};
 	    		vertical-align: middle;
 	    		margin: 0 auto;
 	    	}
@@ -190,7 +191,7 @@ var LoadingButton = function() {
 			margin: 0 auto;
 			width: 10px;
 			height: 30px;
-			border: 10px solid `+settings.checkMarkColor+`;
+			border: 10px solid ${settings.checkMarkColor};
 			border-top: none;
 			border-left: none;
 			transform: rotate(35deg);
@@ -235,8 +236,14 @@ var LoadingButton = function() {
 		  		opacity: 0;
 		}
 	    }`;
-
+	    
+	    // pipe it through the minfier
+	    CSS = minify_css(CSS);
+	    // adding it to the styletag
+	    styleTag.innerHTML= CSS;
+	    // give an id to recognize the style tag
 		styleTag.setAttribute('id', settings.bindToElementById +'ButtonCSS');
+		// appending that style tag to the DOM head tag
 		head.appendChild(styleTag);
 	}
 
@@ -262,7 +269,7 @@ var LoadingButton = function() {
 	}
 
 	/**
-	 * Extend an object.
+	 * Extend an object, overrides the properties of the origin/abstract object.
 	 */
 	function extend(currentObj, newObj ) {
 
@@ -282,6 +289,22 @@ var LoadingButton = function() {
 		}
 
 	    	return extended;
+	}
+
+	/**
+	 * minifies the css text.
+	 */
+	function minify_css(string) {
+	    string = string.replace( /\/\*(?:(?!\*\/)[\s\S])*\*\/|[\r\n\t]+/g, '' );
+	    // now all comments, newlines and tabs have been removed
+	    string = string.replace( / {2,}/g, ' ' );
+	    // now there are no more than single adjacent spaces left
+	    // now unnecessary: string = string.replace( /(\s)+\./g, ' .' );
+	    string = string.replace( / ([{:}]) /g, '$1' );
+	    string = string.replace( /([;,]) /g, '$1' );
+	    string = string.replace( / !/g, '!' );
+	    
+	    return string;
 	}
 	
 	return {

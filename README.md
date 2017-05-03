@@ -21,11 +21,15 @@ button.settings({
 			buttonWidth: '300px',
 			buttonHeight: '100px',
 			checkMarkColor: '#0DFF84',
+			xMarkColor: 'red',
 			fontSize: '36px',
 			fontColor: '#ffffff',
 			backToOriginalState: true,
 });
 ```
+
+please note that if you do not give an specific bindToElementById options the object will bind it to the first button it finds on the DOM.
+
 ### Events
 you can use onclick event like so:
 ```javascript
